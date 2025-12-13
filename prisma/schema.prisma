@@ -1,0 +1,278 @@
+generator client {
+  provider   = "prisma-client-js"
+  output     = "../src/generated/prisma"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model PolaRuangRevisiRtrw {
+  gid    Int                      @id @default(autoincrement())
+  namobj String?                  @db.VarChar(250)
+  jnsrpr Float?
+  wadmkc String?                  @db.VarChar(250)
+  kkop_1 String?                  @db.VarChar(250)
+  kp2b_2 String?                  @db.VarChar(250)
+  krb_03 String?                  @db.VarChar(250)
+  cagbud String?                  @db.VarChar(250)
+  resair String?                  @db.VarChar(250)
+  ksmpdn String?                  @db.VarChar(250)
+  hankam String?                  @db.VarChar(250)
+  kkarst String?                  @db.VarChar(250)
+  ptbgmb String?                  @db.VarChar(250)
+  mgrsat String?                  @db.VarChar(250)
+  rdbumi String?                  @db.VarChar(250)
+  remark String?                  @db.VarChar(250)
+  luasha Decimal?                 @db.Decimal
+  geom   Unsupported("geometry")?
+
+  @@index([geom], type: Gist)
+  @@map("pola_ruang_revisi_rtrw")
+}
+
+model base_layers {
+  id   BigInt @id @default(autoincrement())
+  name String @db.VarChar(255)
+}
+
+model failed_jobs {
+  id         BigInt   @id @default(autoincrement())
+  uuid       String   @unique(map: "failed_jobs_uuid_unique") @db.VarChar(255)
+  connection String
+  queue      String
+  payload    String
+  exception  String
+  failed_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model infrastruktur_struktur_ruang_badau {
+  gid    Int                      @id @default(autoincrement())
+  namobj String?                  @db.VarChar(250)
+  stsjrn Float?
+  geom   Unsupported("geometry")?
+
+  @@index([geom], type: Gist)
+}
+
+model infrastruktur_struktur_ruang_geopark {
+  gid    Int                      @id @default(autoincrement())
+  namobj String?                  @db.VarChar(250)
+  stsjrn Float?
+  geom   Unsupported("geometry")?
+
+  @@index([geom], type: Gist)
+}
+
+model infrastruktur_struktur_ruang_tanjung_kelayang {
+  gid    Int                      @id @default(autoincrement())
+  namobj String?                  @db.VarChar(250)
+  stsjrn Float?
+  geom   Unsupported("geometry")?
+
+  @@index([geom], type: Gist)
+}
+
+model items {
+  id               BigInt          @id @default(autoincrement())
+  name             String          @db.VarChar(255)
+  main_category_id BigInt
+  main_categories  main_categories @relation(fields: [main_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "items_main_category_id_foreign")
+  locations        locations[]
+}
+
+model jaringan_struktur_ruang_badau {
+  gid    Int                      @id @default(autoincrement())
+  namobj String?                  @db.VarChar(250)
+  stsjrn Float?
+  geom   Unsupported("geometry")?
+
+  @@index([geom], type: Gist)
+}
+
+model jaringan_struktur_ruang_geopark {
+  gid    Int                      @id @default(autoincrement())
+  namobj String?                  @db.VarChar(250)
+  stsjrn Float?
+  geom   Unsupported("geometry")?
+
+  @@index([geom], type: Gist)
+}
+
+model jaringan_struktur_ruang_tanjung_kelayang {
+  gid    Int                      @id @default(autoincrement())
+  namobj String?                  @db.VarChar(250)
+  stsjrn Float?
+  geom   Unsupported("geometry")?
+
+  @@index([geom], type: Gist)
+}
+
+model layers {
+  id          BigInt   @id @default(autoincrement())
+  layer_name  String   @db.VarChar(70)
+  geom_type   String   @db.VarChar(50)
+  url         String   @db.VarChar(255)
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+  updated_at  DateTime @default(now()) @db.Timestamp(6)
+  map_type    String   @db.VarChar(20)
+  thumbnail   String?  @db.VarChar(255)
+  attribution String?  @db.VarChar(255)
+  layer_type  String?  @db.VarChar(50)
+  parents     Int?
+}
+
+model locations {
+  id            BigInt          @id @default(autoincrement())
+  name          String          @db.VarChar(255)
+  item_id       BigInt
+  items         items           @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "locations_item_id_foreign")
+  sub_locations sub_locations[]
+}
+
+model main_categories {
+  id    BigInt  @id @default(autoincrement())
+  title String  @db.VarChar(255)
+  items items[]
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement())
+  migration String @db.VarChar(255)
+  batch     Int
+}
+
+model password_reset_tokens {
+  email      String    @id @db.VarChar(255)
+  token      String    @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+}
+
+model personal_access_tokens {
+  id             BigInt    @id @default(autoincrement())
+  tokenable_type String    @db.VarChar(255)
+  tokenable_id   BigInt
+  name           String    @db.VarChar(255)
+  token          String    @unique(map: "personal_access_tokens_token_unique") @db.VarChar(64)
+  abilities      String?
+  last_used_at   DateTime? @db.Timestamp(0)
+  expires_at     DateTime? @db.Timestamp(0)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+
+  @@index([tokenable_type, tokenable_id], map: "personal_access_tokens_tokenable_type_tokenable_id_index")
+}
+
+model pola_ruang_badau {
+  gid    Int                      @id @default(autoincrement())
+  namobj String?                  @db.VarChar(250)
+  jnsrpr Float?
+  wadmkc String?                  @db.VarChar(250)
+  wadmkd String?                  @db.VarChar(250)
+  kkop_1 String?                  @db.VarChar(250)
+  lp2b_2 String?                  @db.VarChar(250)
+  krb_03 String?                  @db.VarChar(250)
+  tod_04 String?                  @db.VarChar(250)
+  teb_05 String?                  @db.VarChar(250)
+  puslit String?                  @db.VarChar(250)
+  cagbud String?                  @db.VarChar(250)
+  resair String?                  @db.VarChar(250)
+  ksmpdn String?                  @db.VarChar(250)
+  hankam String?                  @db.VarChar(250)
+  kkarst String?                  @db.VarChar(250)
+  ptbgmb String?                  @db.VarChar(250)
+  mgrsat String?                  @db.VarChar(250)
+  rdbumi String?                  @db.VarChar(250)
+  tpz_00 String?                  @db.VarChar(250)
+  remark String?                  @db.VarChar(250)
+  luasha Decimal?                 @db.Decimal
+  geom   Unsupported("geometry")?
+
+  @@index([geom], type: Gist)
+}
+
+model pola_ruang_geopark {
+  gid    Int                      @id @default(autoincrement())
+  namobj String?                  @db.VarChar(250)
+  jnsrpr Float?
+  wadmkc String?                  @db.VarChar(250)
+  wadmkd String?                  @db.VarChar(250)
+  kkop_1 String?                  @db.VarChar(250)
+  lp2b_2 String?                  @db.VarChar(250)
+  krb_03 String?                  @db.VarChar(250)
+  tod_04 String?                  @db.VarChar(250)
+  teb_05 String?                  @db.VarChar(250)
+  puslit String?                  @db.VarChar(250)
+  cagbud String?                  @db.VarChar(250)
+  resair String?                  @db.VarChar(250)
+  ksmpdn String?                  @db.VarChar(250)
+  hankam String?                  @db.VarChar(250)
+  kkarst String?                  @db.VarChar(250)
+  ptbgmb String?                  @db.VarChar(250)
+  mgrsat String?                  @db.VarChar(250)
+  rdbumi String?                  @db.VarChar(250)
+  tpz_00 String?                  @db.VarChar(250)
+  remark String?                  @db.VarChar(250)
+  luasha Decimal?                 @db.Decimal
+  geom   Unsupported("geometry")?
+
+  @@index([geom], type: Gist)
+}
+
+model pola_ruang_tanjung_kelayang {
+  gid    Int                      @id @default(autoincrement())
+  namobj String?                  @db.VarChar(250)
+  jnsrpr Float?
+  wadmkc String?                  @db.VarChar(250)
+  wadmkd String?                  @db.VarChar(250)
+  kkop_1 String?                  @db.VarChar(250)
+  lp2b_2 String?                  @db.VarChar(250)
+  krb_03 String?                  @db.VarChar(250)
+  tod_04 String?                  @db.VarChar(250)
+  teb_05 String?                  @db.VarChar(250)
+  puslit String?                  @db.VarChar(250)
+  cagbud String?                  @db.VarChar(250)
+  resair String?                  @db.VarChar(250)
+  ksmpdn String?                  @db.VarChar(250)
+  hankam String?                  @db.VarChar(250)
+  kkarst String?                  @db.VarChar(250)
+  ptbgmb String?                  @db.VarChar(250)
+  mgrsat String?                  @db.VarChar(250)
+  rdbumi String?                  @db.VarChar(250)
+  tpz_00 String?                  @db.VarChar(250)
+  remark String?                  @db.VarChar(250)
+  luasha Decimal?                 @db.Decimal
+  geom   Unsupported("geometry")?
+
+  @@index([geom], type: Gist)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model spatial_ref_sys {
+  srid      Int     @id
+  auth_name String? @db.VarChar(256)
+  auth_srid Int?
+  srtext    String? @db.VarChar(2048)
+  proj4text String? @db.VarChar(2048)
+}
+
+model sub_locations {
+  id          BigInt    @id @default(autoincrement())
+  location_id BigInt
+  name        String    @db.VarChar(255)
+  url         String?   @db.VarChar(255)
+  layer_type  String?   @db.VarChar(255)
+  locations   locations @relation(fields: [location_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "sub_locations_location_id_foreign")
+}
+
+model users {
+  id           Int      @id @default(autoincrement())
+  fullname     String   @unique(map: "ix_users_fullname") @db.VarChar(200)
+  password     String   @db.VarChar(255)
+  email        String   @unique(map: "ix_users_email") @db.VarChar(150)
+  is_active    Boolean
+  is_superuser Boolean
+  created_at   DateTime @default(now()) @db.Timestamp(6)
+  updated_at   DateTime @default(now()) @db.Timestamp(6)
+}

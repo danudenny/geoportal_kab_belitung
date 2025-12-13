@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background: #0f172a;
+    --foreground: #e2e8f0;
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: 'Space Grotesk', sans-serif;
+    overflow: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #1e293b;
+}
+::-webkit-scrollbar-thumb {
+    background: #10b981;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #34d399;
+}
+
+/* OpenLayers overrides */
+.ol-control {
+    display: none; /* We build custom controls */
+}

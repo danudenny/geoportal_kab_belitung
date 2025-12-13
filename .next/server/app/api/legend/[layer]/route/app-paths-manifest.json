@@ -1,0 +1,3 @@
+{
+  "/api/legend/[layer]/route": "app/api/legend/[layer]/route.js"
+}

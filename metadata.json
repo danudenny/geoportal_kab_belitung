@@ -1,0 +1,7 @@
+{
+  "name": "GeoGreen Mapper",
+  "description": "A professional geospatial viewer featuring a minimized sidebar, categorized layer management, and multi-format data upload capabilities, styled with a modern Inter aesthetic.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
