@@ -1,3 +1,0 @@
-module.exports=[13051,a=>{a.v({className:"google_sans_code_df95787d-module__Us4eRa__className"})},27572,a=>{"use strict";var b=a.i(7997),c=a.i(13051);let d={className:c.default.className,style:{fontFamily:"'Google Sans Code'",fontStyle:"normal"}};function e({children:a}){return(0,b.jsxs)("html",{lang:"en",children:[(0,b.jsx)("head",{}),(0,b.jsx)("body",{className:"antialiased",children:(0,b.jsx)("main",{className:d.className,children:a})})]})}null!=c.default.variable&&(d.variable=c.default.variable),a.s(["default",()=>e,"metadata",0,{title:"Simtaru Kabupaten Belitung",description:"Sistem Informasi Tata Ruang Kabupaten Belitung"}],27572)}];
-
-//# sourceMappingURL=%5Broot-of-the-server%5D__f5af84b3._.js.map

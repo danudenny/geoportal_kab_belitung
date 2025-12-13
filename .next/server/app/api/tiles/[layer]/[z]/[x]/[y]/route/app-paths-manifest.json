@@ -1,3 +1,0 @@
-{
-  "/api/tiles/[layer]/[z]/[x]/[y]/route": "app/api/tiles/[layer]/[z]/[x]/[y]/route.js"
-}
