@@ -26,7 +26,7 @@
 ### 🗺️ Peta Interaktif & Navigasi
 
 -   **Engine Handal**: Dibangun di atas **OpenLayers** untuk performa rendering peta yang tinggi.
--   **Multi-Basemap**: Pilihan peta dasar meliputi Citra Satelit, Peta Jalan (OSM), dan Topografi.
+-   **Multi-Basemap**: Pilihan peta dasar meliputi Citra Satelit, Peta Jalan, dan Topografi.
 -   **Layer Control**: Kontrol penuh untuk visibilitas (on/off) dan tingkat transparansi (opacity) setiap layer.
 
 ### 📂 Data Tata Ruang & Infrastruktur

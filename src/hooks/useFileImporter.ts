@@ -1,3 +1,4 @@
+import { parseFileToGeoJSON } from '@/utils/fileParser';
 import GeoJSON from 'ol/format/GeoJSON';
 import { Vector as VectorLayer } from 'ol/layer';
 import OlMap from 'ol/Map';
@@ -27,27 +28,41 @@ export const useFileImporter = (map: OlMap | null, filesToLoad: File[]) => {
         });
 
         // 2. Add layers for new files
-        filesToLoad.forEach((file) => {
-            if (activeLayers.has(file.name)) return; // Already loaded
+        const loadFiles = async () => {
+            const projection = map.getView().getProjection().getCode();
 
-            console.log('Processing new file:', file.name);
+            for (const file of filesToLoad) {
+                if (activeLayers.has(file.name)) continue; // Already loaded
 
-            if (file.name.endsWith('.geojson') || file.name.endsWith('.json')) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const result = e.target?.result;
-                    if (typeof result === 'string') {
-                        try {
-                            // Parse GeoJSON
-                            const features = new GeoJSON().readFeatures(
-                                JSON.parse(result),
-                                {
-                                    featureProjection: map
-                                        .getView()
-                                        .getProjection(),
-                                }
-                            );
+                console.log('Processing new file:', file.name);
+                try {
+                    const geojson = await parseFileToGeoJSON(file);
 
+                    if (geojson) {
+                        // Whether it's a FeatureCollection or array (shpjs might return array)
+                        // If array, we take the first item or iterate?
+                        // shpjs returns array if zip contains multiple shapefiles.
+                        // For simplicity, let's assume single feature collection or array of them.
+                        // We will flatten it for OL reading.
+
+                        let features: any[] = [];
+                        const format = new GeoJSON();
+
+                        if (Array.isArray(geojson)) {
+                            // array of feature collections
+                            geojson.forEach((fc) => {
+                                const readFeatures = format.readFeatures(fc, {
+                                    featureProjection: projection,
+                                });
+                                features = features.concat(readFeatures);
+                            });
+                        } else {
+                            features = format.readFeatures(geojson, {
+                                featureProjection: projection,
+                            });
+                        }
+
+                        if (features.length > 0) {
                             const vectorSource = new VectorSource({
                                 features: features,
                             });
@@ -82,24 +97,27 @@ export const useFileImporter = (map: OlMap | null, filesToLoad: File[]) => {
                             activeLayers.set(file.name, vectorLayer);
 
                             // Zoom to extent
-                            if (features.length > 0) {
-                                const extent = vectorSource.getExtent();
-                                map.getView().fit(extent, {
-                                    padding: [50, 50, 50, 50],
-                                    duration: 1000,
-                                });
-                            }
-                        } catch (err) {
-                            console.error('Error parsing GeoJSON', err);
+                            const extent = vectorSource.getExtent();
+                            map.getView().fit(extent, {
+                                padding: [50, 50, 50, 50],
+                                duration: 1000,
+                            });
+                        } else {
+                            console.warn(
+                                `No features found for file: ${file.name}`
+                            );
                         }
+                    } else {
+                        console.warn(
+                            `Unsupported format or empty result for file: ${file.name}`
+                        );
                     }
-                };
-                reader.readAsText(file);
-            } else {
-                console.warn(
-                    `File ${file.name} is not a supported GeoJSON file.`
-                );
+                } catch (err) {
+                    console.error('Error loading file to map:', err);
+                }
             }
-        });
+        };
+
+        loadFiles();
     }, [filesToLoad, map]); // Re-run when file list changes
 };

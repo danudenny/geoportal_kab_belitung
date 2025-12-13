@@ -95,7 +95,7 @@ const UploadPanel: React.FC<UploadPanelProps> = ({
                     IMPORT DATA
                 </h2>
                 <p className="text-xs text-slate-400 mt-2">
-                    Supported: .geojson, .kml, .json
+                    Supported: .geojson, .kml, .gpx, .csv, .zip (Shapefile)
                 </p>
             </div>
 
@@ -118,7 +118,7 @@ const UploadPanel: React.FC<UploadPanelProps> = ({
                     multiple
                     className="hidden"
                     id="file-upload"
-                    accept=".geojson,.json,.kml"
+                    accept=".geojson,.json,.kml,.gpx,.csv,.zip"
                     onChange={handleInputChange}
                 />
                 <label
