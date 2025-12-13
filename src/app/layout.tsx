@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google';
-import 'ol/ol.css'; // Global OpenLayers CSS
+import { Bricolage_Grotesque, Inter } from 'next/font/google';
+import 'ol/ol.css';
 import './globals.css';
 
+const bricolage = Bricolage_Grotesque({
+    subsets: ['latin'],
+    variable: '--font-heading',
+});
+const inter = Inter({ subsets: ['latin'], variable: '--font-body' });
 export const metadata: Metadata = {
     title: 'Simtaru Kabupaten Belitung',
     description: 'Sistem Informasi Tata Ruang Kabupaten Belitung',
 };
-
-const poppins = Poppins({ weight: '400', subsets: ['latin'] });
 
 export default function RootLayout({
     children,
@@ -19,7 +22,7 @@ export default function RootLayout({
         <html lang="en">
             <head></head>
             <body className="antialiased">
-                <main className={poppins.className}>{children}</main>
+                <main className={inter.className}>{children}</main>
             </body>
         </html>
     );

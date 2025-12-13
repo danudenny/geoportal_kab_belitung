@@ -8,7 +8,6 @@ import { useUserLocation } from '../hooks/useUserLocation';
 import { LayerGroup, SelectedFeature } from '../types';
 import LegendPanel from './LegendPanel';
 import MapAttribution from './map/MapAttribution';
-import MapBrand from './map/MapBrand';
 import MapControls from './map/MapControls';
 
 interface MapViewerProps {
@@ -62,7 +61,7 @@ const MapViewer: React.FC<MapViewerProps> = ({
         <div className="relative w-full h-full bg-slate-950">
             <div ref={mapElement} className="w-full h-full" />
 
-            <MapBrand />
+            {/* <MapBrand /> */}
 
             <MapControls
                 onZoomIn={handleZoomIn}

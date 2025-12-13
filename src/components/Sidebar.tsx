@@ -1,11 +1,12 @@
 import {
     BringToFront,
-    Database,
     Grid2x2Plus,
     Info,
     PieChart,
     Settings,
 } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { SidebarMode } from '../types';
 
 interface SidebarProps {
@@ -48,8 +49,19 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMode, setActiveMode }) => {
 
     return (
         <div className="w-16 h-full bg-slate-900 border-r border-slate-800 flex flex-col items-center z-20 shadow-xl relative">
-            <div className="p-4 mb-4 text-primary-500">
-                <Database size={28} />
+            <div className="p-2 text-primary-500">
+                <Link href="/">
+                    <Image
+                        src="https://res.cloudinary.com/killtdj/image/upload/v1719635543/Kabupaten_Belitung_paacyj.png"
+                        alt="Logo"
+                        className="w-10 h-12 object-contain drop-shadow-md"
+                        width={28}
+                        height={28}
+                        priority={true}
+                        loading="eager"
+                        unoptimized={true}
+                    />
+                </Link>
             </div>
 
             <nav className="flex-1 flex flex-col w-full gap-2">
